@@ -1,0 +1,46 @@
+config:
+  credentials: []
+  project_repos:
+    github.com/EOSC-synergy/sqaaas-tooling:
+      branch: 1.7.0_no_kubectl
+      repo: https://github.com/EOSC-synergy/sqaaas-tooling
+    github.com/inab/openEBenchAPI:
+      branch: master
+      repo: https://github.com/inab/openEBenchAPI
+environment:
+  JPL_DOCKERFORCEBUILD: enabled
+  JPL_KEEPGOING: enabled
+sqa_criteria:
+  QC.Acc:
+    repos:
+      github.com/inab/openEBenchAPI git:
+        commands:
+        - /usr/bin/env sh .sqa/script.geeky-silver-jackal.sh
+        container: qc.acc_grumpy-tan-kudu
+  QC.Doc:
+    repos:
+      github.com/inab/openEBenchAPI find_doc_files.py:
+        commands:
+        - /usr/bin/env sh .sqa/script.slimy-mustard-dollar.sh
+        container: qc.doc_nerdy-grey-dugong
+      github.com/inab/openEBenchAPI git:
+        commands:
+        - /usr/bin/env sh .sqa/script.messy-champagne-coyote.sh
+        container: qc.doc_tacky-crimson-chihuahua
+      github.com/inab/openEBenchAPI markdownlint:
+        commands:
+        - /usr/bin/env sh .sqa/script.lousy-cream-angora.sh
+        container: qc.doc_wheezy-beige-saola
+  QC.Lic:
+    repos:
+      github.com/inab/openEBenchAPI licensee:
+        commands:
+        - /usr/bin/env sh .sqa/script.cloudy-thistle-panda.sh
+        container: qc.lic_dorky-aquamarine-eleuth
+  QC.Ver:
+    repos:
+      github.com/inab/openEBenchAPI get_git_tags.py:
+        commands:
+        - /usr/bin/env sh .sqa/script.lovely-green-gharial.sh
+        container: qc.ver_slaphappy-malachite-octopus
+timeout: 1800
